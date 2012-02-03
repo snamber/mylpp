@@ -1,0 +1,18 @@
+2011-10-11 - Christoph Kloss
++ included pizza patches from Steve Plimpton (Sandia) until 2011-10-07                                                  OK
++ changed the doc in pizza-style (removed readme_granular.txt, new lpp.txt/html file)                                   OK
++ Automatic recognition of variables extended to computes (c_) and variables (v_)                                       OK
++ included a new functionality written by Mark Bentley (Space Research Institute, Austrian Academy of Sciences)
+  to convert dump/local output into VTK to viz stress chains                                                           TODO
++ test+debug force chains                                                                                              TODO
+
+2011-09-27 - Philippe Seil
++ added LPP command line options that give control over things like output filenames, chunksizes etc.
+
+2011-08-10 - Stefan Amberger
++ bugfix for (dump.py, vtk.py) parallelpizza would crash if empty dumpfiles were processed (i.e. number of atoms == 0)
+
+2011-08-12 - Stefan Amberger
++ removed (vtk.py) the binding of variables to specific positions in liggghts dump files. 
+   scalars / vectors are now recognized automatically (rules: x,y,z in the end --> vector; f_variable[i], f_variable[i+1], f_variable[i+2] --> vector)
++ lpp now uses command line arguments. new usage: User$ lpp dump*

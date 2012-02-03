@@ -1,0 +1,28 @@
+=================================================================
+This is lpp (liggghts post processing), an update to pizza.py offering better visualization
+of granular (DEM) LIGGGHTS or LAMMPS simulations using pizza.py
+
+LAMMPS=Large Atomic and Molecular Massively Parallel Simulator.
+http://lammps.sandia.gov/
+
+LIGGGHTS=LAMMPS Improved for General Granular and Granular
+         Heat Transfer Simulations
+http://www.liggghts.com // www.cfdem.com
+
+pizza.py=LAMMPS post processor
+http://www.sandia.gov/~sjplimp/pizza.html
+=================================================================
+Christoph Kloss,                            Linz, Aug. 2010 -
+Stefan Amberger	                            Linz, July 2011 -
+Philippe Seil                               Linz, Sept 2011 -
+
+all
+Christian-Doppler Laboratory on Particulate Flow Modelling
+Institute of Fluid Mechanics and Heat Transfer
+Johannes Kepler University,
+Altenbergerstrasse 69, A-4040 Linz/Austria
+www.particulate-flow.at
+=================================================================
+
+For information on how to use the lpp tool, see doc/lpp.html
+
