@@ -25,7 +25,7 @@
 
 #PIZZA_TOOLS = ["~/mystuff/new_pizza_tools"]
 #PIZZA_SCRIPTS = ["~/mystuff/new_pizza_scripts"]
-PIZZA_EXCLUDE = ["pizza", "DEFAULTS", "vizinfo"]
+PIZZA_EXCLUDE = ["pizza", "DEFAULTS", "vizinfo", "dump2force"]
 
 # --------------
 # --------------
