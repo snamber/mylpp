@@ -1,3 +1,6 @@
+from 2012-02-22 on
+see git log
+
 2011-10-11 - Christoph Kloss
 + included pizza patches from Steve Plimpton (Sandia) until 2011-10-07                                                  OK
 + changed the doc in pizza-style (removed readme_granular.txt, new lpp.txt/html file)                                   OK
