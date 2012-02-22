@@ -105,10 +105,11 @@ class lpp:
       job_server = multiprocessing.Pool(processes = self.cpunum)
       
       # map lppWorker on all inputs via job_server (parallelly)
-      job_server.map(lppWorker,dumpInput[i:i+self.cpunum])
+      job_server.map_async(lppWorker,dumpInput[i:i+self.cpunum]).get(9999999)
       
       # close jobserver
       job_server.close()
+      job_server.join()
       i += self.cpunum
     
     endtime = time.time()
