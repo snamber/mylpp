@@ -1,4 +1,6 @@
-to install liggghts post processing copy the following lines of code into your bashrc (please change the variable CFDEM_lppPath according to your system):
+to install liggghts post processing copy the following lines of code 
+into your bashrc (please change the variable CFDEM_lppPath according 
+to your system):
 
 ============================================
 CFDEM_lppPath=/Users/s/work/parallelpizza/nightly_build
