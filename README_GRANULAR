@@ -1,6 +1,7 @@
 =================================================================
 This is lpp (liggghts post processing), an update to pizza.py offering better visualization
 of granular (DEM) LIGGGHTS or LAMMPS simulations using pizza.py
+see ./doc/lpp.html
 
 LAMMPS=Large Atomic and Molecular Massively Parallel Simulator.
 http://lammps.sandia.gov/
