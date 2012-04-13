@@ -5,7 +5,7 @@ docstr = """this is the docstr of LIGGGHTSPostProcessing"""
 from dump import dump
 from math import floor
 from math import ceil
-from vtk import vtk
+import vtk
 import glob
 import multiprocessing
 import sys
@@ -32,6 +32,7 @@ class lpp:
     # make this figure higher but if possible a multiple of 8
     self.cpunum      = multiprocessing.cpu_count()
     self.chunksize   = 8
+    self.overwrite   = True
 
     if "--chunksize" in kwargs: 
       try:
@@ -49,6 +50,9 @@ class lpp:
       except ValueError:
         raise ValueError, "Invalid or no argument given for cpunum"
 
+    # do not overwrite existing files
+    if "--no-overwrite" in kwargs:
+      self.overwrite = False
     
     # suppress output with 'False'
     if "--debug" in kwargs: self.debugMode = True
@@ -69,14 +73,16 @@ class lpp:
     
     # check whether file-list is nonempty
     self.flist = list[0]
-    if len(self.flist) == 0 and len(list) == 1:
+    listlen = len(self.flist)
+    if listlen == 0 and len(list) == 1:
       raise StandardError, "no dump file specified"
+    if listlen == 1 and self.overwrite == False:
+      raise StandardError, "Cannot process single dump files with --no-overwrite."
     
     if self.output:
       print "Working with", self.cpunum, "processes..."
     
-    # seperate list in pieces of 96+rest
-    listlen = len(self.flist)
+    # seperate list in pieces+rest
     self.slices = []
     
     residualPresent = int(bool(listlen-floor(listlen/self.chunksize)*self.chunksize))
@@ -90,7 +96,12 @@ class lpp:
     if "-o" in kwargs: output = kwargs["-o"]
     # generate input for lppWorker
     dumpInput = [{"filelist":self.slices[i],\
-      "debugMode":self.debugMode,"output":output} for i in xrange(len(self.slices))]
+      "debugMode":self.debugMode,\
+      "output":output,\
+      "overwrite":self.overwrite} \
+      for i in xrange(len(self.slices))]
+    
+    print "dumpInput:",dumpInput
     
     numberOfRuns = len(dumpInput)
     i = 0
@@ -121,23 +132,48 @@ def lppWorker(input):
   flist = input["filelist"]
   debugMode = input["debugMode"]
   outfileName = input["output"]
-  #print "number of subprocess:", os.getpid()
-  #print flist,"\n\n"
+  overwrite = input["overwrite"]
   
   flistlen = len(flist)
+  # generate name of manyGran
   splitfname = flist[0].rsplit(".")
   if outfileName == "":
-    # generate name of manyGran
     granName = splitfname[len(splitfname)-1]
   elif outfileName.endswith("/"):
     granName = outfileName + splitfname[len(splitfname)-1]
   else:
     granName = outfileName
-
-  # call dump, vtk, manyGran
+  
+  # if no-overwrite: read timestamp in first line of file
+  # if corresponding dump-file does not already exists: add it to 'shortFlist'
+  # shortFlist ... list of files to finally be processed by dump, and vtk.
+  # elements of flist that are not in shortFlist already exist and will not be
+  # converted anew and replaced
+  shortFlist = []
+  if overwrite == True:
+    shortFlist = flist
+  else:
+    for f in flist:
+      try:
+        # read time
+        ff = open(f)
+        ff.readline()
+        time = int(ff.readline())
+        sys.stdout.flush()
+        ff.close()
+      except:
+        continue
+      
+      # generate filename from time like in vtk,
+      # check if file exists; if yes: do not add to list
+      filename,file_bb,file_walls = vtk.generateFilename(granName,[time],0)
+      if not os.path.isfile(filename):
+        shortFlist.append(f)
+  
+  # call dump, vtk, manyGran on shortFlist
   try:
-    d = dump({"filelist":flist, "debugMode":debugMode})
-    v = vtk(d)
+    d = dump({"filelist":shortFlist, "debugMode":debugMode})
+    v = vtk.vtk(d)
     if debugMode: print "\nfileNums: ",d.fileNums,"\n"
     v.manyGran(granName,fileNos=d.fileNums,output=debugMode)
   except KeyboardInterrupt:
@@ -159,7 +195,7 @@ def printHelp():
 if __name__ == "__main__":
   if len(sys.argv) > 1:
     # parse options
-    optlist, args = getopt.gnu_getopt(sys.argv[1:],'o:',['chunksize=','cpunum=','debug','help','quiet'])
+    optlist, args = getopt.gnu_getopt(sys.argv[1:],'o:',['chunksize=','cpunum=','debug','help','quiet','no-overwrite'])
     optdict = dict(optlist)
     if "--help" in optdict:
       printHelp()
