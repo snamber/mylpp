@@ -151,22 +151,7 @@ class vtk:
         surfflag = 1
         surface(tris)
         
-      if fileNos[n] < 10:
-        file = root + "000" + str(fileNos[n]) + ".vtk"
-        file_bb= root + "000" + str(fileNos[n]) + "_boundingBox.vtk"
-        file_walls= root + "000" + str(fileNos[n]) + "_walls.vtk"
-      elif fileNos[n] < 100:
-        file = root + "00" + str(fileNos[n]) + ".vtk"
-        file_bb= root + "00" + str(fileNos[n]) + "_boundingBox.vtk"
-        file_walls= root + "00" + str(fileNos[n]) + "_walls.vtk"
-      elif fileNos[n] < 1000:
-        file = root + "0" + str(fileNos[n]) + ".vtk"
-        file_bb= root + "0" + str(fileNos[n]) + "_boundingBox.vtk"
-        file_walls= root + "0" + str(fileNos[n]) + "_walls.vtk"
-      else:
-        file = root + str(fileNos[n]) + ".vtk"
-        file_bb= root + str(fileNos[n]) + "_boundingBox.vtk"
-        file_walls= root + str(fileNos[n]) + "_walls.vtk"
+      file, file_bb, file_walls = generateFilename(root,fileNos,n)
 
       boundingBox(file_bb,xlo,xhi,ylo,yhi,zlo,zhi)
       nvalues = 0
@@ -190,6 +175,32 @@ class vtk:
     time,box,atoms,bonds,tris,lines = self.data.viz(which)
     if len(tris): surface(tris)
     particle(file,atoms)
+
+# ----------------------------------------------------------------------------
+# generates the filename of the output-vtk-files from
+# - a root string,
+# - the a string of numbers (timestamps) and
+# - the index, i.e. which of those numbers is going to be used
+# ----------------------------------------------------------------------------
+def generateFilename(root,fileNos,n):
+  if fileNos[n] < 10:
+    file = root + "000" + str(fileNos[n]) + ".vtk"
+    file_bb= root + "000" + str(fileNos[n]) + "_boundingBox.vtk"
+    file_walls= root + "000" + str(fileNos[n]) + "_walls.vtk"
+  elif fileNos[n] < 100:
+    file = root + "00" + str(fileNos[n]) + ".vtk"
+    file_bb= root + "00" + str(fileNos[n]) + "_boundingBox.vtk"
+    file_walls= root + "00" + str(fileNos[n]) + "_walls.vtk"
+  elif fileNos[n] < 1000:
+    file = root + "0" + str(fileNos[n]) + ".vtk"
+    file_bb= root + "0" + str(fileNos[n]) + "_boundingBox.vtk"
+    file_walls= root + "0" + str(fileNos[n]) + "_walls.vtk"
+  else:
+    file = root + str(fileNos[n]) + ".vtk"
+    file_bb= root + str(fileNos[n]) + "_boundingBox.vtk"
+    file_walls= root + str(fileNos[n]) + "_walls.vtk"
+
+  return (file, file_bb, file_walls)
 
 # --------------------------------------------------------------------
 # write list of triangles into VTK surface files: SURF1.vtk, SURF2.vtk, ...
