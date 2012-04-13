@@ -114,6 +114,7 @@ List of tools in Pizza.py:
 "image.py"_image.html; View and manipulate images
 "ldump.py"_ldump.html; Read LAMMPS dump files with line info
 "log.py"_log.html; Read LAMMPS log files and extract thermodynamic data
+"lpp.py"_lpp.html; LIGGGHTS parallel postprocessing
 "matlab.py"_matlab.html; Create plots via "MatLab"_matlab numerical analysis program
 "mdump.py"_mdump.html; Read, write, manipulate mesh dump files
 "pair.py"_pair.html; Compute LAMMPS pairwise energies

@@ -94,17 +94,20 @@ In a similar fashion, you can set up vector glyphs to visualize velocity etc.
 
 A few command line options are avaliable to control lpp:
 
--o fname    : define output file names (default is liggghts + timestep number). This option can also be used to write to a specified folder, eg. "lpp -o foo/bar dump*" will create files bar1000.vtk, bar2000.vtk etc. in the directory ./foo while "lpp -o foo/ dump*" will create files named liggghts1000.vtk, ligggghts2000.vtk etc. in ./foo (providing the directory exists, lpp will not create any directories for you!)
+[-o fname]       : define output file names (default is liggghts + timestep number). This option can also be used to write to a specified folder, eg. "lpp -o foo/bar dump*" will create files bar1000.vtk, bar2000.vtk etc. in the directory ./foo while "lpp -o foo/ dump*" will create files named liggghts1000.vtk, ligggghts2000.vtk etc. in ./foo (providing the directory exists, lpp will not create any directories for you!)
 
---chunksize : sets the amount of dumpfiles processed per chunk, the default is 8. Increasing the chunksize can improve performance, but the chunksize is limited by the amount of RAM on your system. Also keep in mind that multiple chunks may be processed depending on your --cpunum settings, and thus RAM demand is multiplied.
+[--chunksize]    : sets the amount of dumpfiles processed per chunk, the default is 8. Increasing the chunksize can improve performance, but the chunksize is limited by the amount of RAM on your system. Also keep in mind that multiple chunks may be processed depending on your --cpunum settings, and thus RAM demand is multiplied.
 
---cpunum    : sets the number of processes to start, default (and maximum) is the amount of cpu cores avaliable at your system.
+[--cpunum]       : sets the number of processes to start, default (and maximum) is the amount of cpu cores avaliable at your system.
 
---debug     : prints debug information, usually not needed
+[--debug]        : prints debug information, usually not needed
 
---quiet     : suppresses all output but error messages (also discards --debug)
+[--help]         : writes a help message and exits
 
---help      : writes a help message and exits
+[--no-overwrite] : if set lpp does not process dump-files that have already been
+converted, i.e. where the vtk-file already exists.
+
+[--quiet]        : suppresses all output but error messages (also discards --debug)
 
 :line
 
@@ -116,4 +119,4 @@ A few command line options are avaliable to control lpp:
 
 [Prerequisites:] 
 
-Python "multiprocessing" tool
+Python "multiprocessing library"_http://docs.python.org/library/multiprocessing.html (new in python 2.6)

@@ -108,17 +108,20 @@ button and then in the object inspector:
 </P>
 <P>A few command line options are avaliable to control lpp:
 </P>
-<P>-o fname    : define output file names (default is liggghts + timestep number). This option can also be used to write to a specified folder, eg. "lpp -o foo/bar dump*" will create files bar1000.vtk, bar2000.vtk etc. in the directory ./foo while "lpp -o foo/ dump*" will create files named liggghts1000.vtk, ligggghts2000.vtk etc. in ./foo (providing the directory exists, lpp will not create any directories for you!)
+<P><B>-o fname</B>       : define output file names (default is liggghts + timestep number). This option can also be used to write to a specified folder, eg. "lpp -o foo/bar dump*" will create files bar1000.vtk, bar2000.vtk etc. in the directory ./foo while "lpp -o foo/ dump*" will create files named liggghts1000.vtk, ligggghts2000.vtk etc. in ./foo (providing the directory exists, lpp will not create any directories for you!)
 </P>
-<P>--chunksize : sets the amount of dumpfiles processed per chunk, the default is 8. Increasing the chunksize can improve performance, but the chunksize is limited by the amount of RAM on your system. Also keep in mind that multiple chunks may be processed depending on your --cpunum settings, and thus RAM demand is multiplied.
+<P><B>--chunksize</B>    : sets the amount of dumpfiles processed per chunk, the default is 8. Increasing the chunksize can improve performance, but the chunksize is limited by the amount of RAM on your system. Also keep in mind that multiple chunks may be processed depending on your --cpunum settings, and thus RAM demand is multiplied.
 </P>
-<P>--cpunum    : sets the number of processes to start, default (and maximum) is the amount of cpu cores avaliable at your system.
+<P><B>--cpunum</B>       : sets the number of processes to start, default (and maximum) is the amount of cpu cores avaliable at your system.
 </P>
-<P>--debug     : prints debug information, usually not needed
+<P><B>--debug</B>        : prints debug information, usually not needed
 </P>
-<P>--quiet     : suppresses all output but error messages (also discards --debug)
+<P><B>--help</B>         : writes a help message and exits
 </P>
-<P>--help      : writes a help message and exits
+<P><B>--no-overwrite</B> : if set lpp does not process dump-files that have already been
+converted, i.e. where the vtk-file already exists.
+</P>
+<P><B>--quiet</B>        : suppresses all output but error messages (also discards --debug)
 </P>
 <HR>
 
@@ -130,6 +133,6 @@ button and then in the object inspector:
 
 <P><B>Prerequisites:</B> 
 </P>
-<P>Python "multiprocessing" tool
+<P>Python <A HREF = "http://docs.python.org/library/multiprocessing.html">multiprocessing library</A> (new in python 2.6)
 </P>
 </HTML>
