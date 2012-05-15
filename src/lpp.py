@@ -101,7 +101,7 @@ class lpp:
       "overwrite":self.overwrite} \
       for i in xrange(len(self.slices))]
     
-    print "dumpInput:",dumpInput
+    if self.debugMode: print "dumpInput:",dumpInput
     
     numberOfRuns = len(dumpInput)
     i = 0

@@ -309,8 +309,10 @@ class dump:
       print "dump scaling status is unknown"
     elif self.nsnaps > 0:
       if self.scale_original == 1: self.unscale()
-      elif self.scale_original == 0: print "dump is already unscaled"
-      else: print "dump scaling status is unknown"
+      elif self.scale_original == 0:
+        if outputfl: print "dump is already unscaled"
+      else:
+        if outputfl: print "dump scaling status is unknown"
 
   # --------------------------------------------------------------------
   # read next snapshot from list of files
