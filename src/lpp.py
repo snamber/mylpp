@@ -190,7 +190,7 @@ def printHelp():
   print "--cpunum    : sets the number of processes to start, default (and maximum)",\
     "is the amout of cpu cores avaliable at your system"
   print "--help      : writes this help message and exits"
-  print "no-overwrite: disables overwriting of already post-processed files."
+  print "--no-overwrite: disables overwriting of already post-processed files."
   print "For details, read README_GRANULAR.txt"
 
 if __name__ == "__main__":
